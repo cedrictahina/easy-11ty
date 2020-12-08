@@ -4,14 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx eleventy",
-    "serve": "npx eleventy --serve",
-    "debug": "DEBUG=* npx eleventy"
+    "serve": "run-p serve:eleventy serve:parcel serve:browsersync",
+    "serve:parcel": "run-p serve:styles serve:scripts",
+    "serve:styles": "parcel watch src/styles/main.scss",
+    "serve:scripts": "parcel watch src/js/main.js",
+    "serve:eleventy": "npx @11ty/eleventy --watch",
+    "serve:browsersync": "browser-sync start --config browser-sync.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1"
-  }
+    "@11ty/eleventy": "^0.11.1",
+    "browser-sync": "^2.26.13",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.30.0"
+  },
+  "dependencies": {}
 }

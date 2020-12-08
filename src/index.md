@@ -1,5 +1,5 @@
 ---
 layout: main-layout.njk
-title: Hello World! ;)
+title: 11ty-starter-pack
 ---
 # {{ title }}

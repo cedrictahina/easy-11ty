@@ -1,13 +1,13 @@
 module.exports = function () {
-    // You can return your Config object (optional).
     return {
         dir: {
             input: "src",
             output: "dist",
-            includes: "includes",
-            layouts: "layouts",
+            includes: "views/includes",
+            layouts: "views/layouts",
             data: "data"
         },
-        templateFormats: ["html", "njk", "md"]
+        templateFormats: ["html", "njk", "md"],
+        passthroughFileCopy: true
     };
 }; 
