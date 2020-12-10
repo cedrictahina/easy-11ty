@@ -1,8 +1,7 @@
 {
-  "name": "11ty-starter-pack",
+  "name": "easy-11ty",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "A starter repository for a project using Eleventy / Typescript / Sass",
   "scripts": {
     "serve": "cross-env NODE_ENV=development npm-run-all --sequential clean build:scripts --parallel watch:* browser-sync",
     "lint": "npm-run-all --sequential lint:*",
@@ -20,9 +19,16 @@
     "lint:styles": "stylelint '**/*.scss' --quiet --fix",
     "clean": "rimraf dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cedrictahina/easy-11ty.git"
+  },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Cedric Tahina Rasoamanana",
+    "email": "r.cedrictahina@gmail.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@11ty/eleventy": "^0.11.1",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
