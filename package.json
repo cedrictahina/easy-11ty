@@ -4,13 +4,21 @@
   "description": "",
   "main": "",
   "scripts": {
-    "serve": "npm run clear && npm run build:ts && run-p watch:* browser-sync",
+    "serve": "cross-env NODE_ENV=development npm-run-all --sequential clean build:scripts --parallel watch:* browser-sync",
+    "lint": "npm-run-all --sequential lint:*",
+    "build": "cross-env NODE_ENV=production npm-run-all --sequential clean --parallel build:scripts build:styles --sequential build:eleventy",
     "browser-sync": "browser-sync start --config browser-sync.config.js",
     "watch:eleventy": "npx @11ty/eleventy --watch",
-    "watch:ts": "rollup -c --watch",
-    "build:ts": "rollup -c",
+    "build:eleventy": "npx @11ty/eleventy",
+    "watch:styles": "sass --source-map-urls=absolute --watch src/styles/main.scss:dist/main.css",
+    "sass": "sass --no-source-map src/styles/main.scss:dist/main.css",
+    "postcss": "postcss dist/*.css --no-map --replace",
+    "build:styles": "npm-run-all --sequential sass postcss",
+    "watch:scripts": "rollup -c --watch",
+    "build:scripts": "rollup -c",
     "lint:scripts": "eslint '**/*.{js,ts}' --quiet --fix",
-    "clear": "rimraf dist"
+    "lint:styles": "stylelint '**/*.scss' --quiet --fix",
+    "clean": "rimraf dist"
   },
   "keywords": [],
   "author": "",
@@ -19,14 +27,25 @@
     "@11ty/eleventy": "^0.11.1",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
+    "autoprefixer": "^10.1.0",
     "browser-sync": "^2.26.13",
+    "cross-env": "^7.0.3",
+    "cssnano": "^4.1.10",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.2.0",
+    "husky": "3",
+    "lint-staged": "^10.5.3",
     "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.1",
+    "postcss-cli": "^8.3.0",
     "prettier": "^2.2.1",
     "rollup": "^2.34.2",
     "rollup-plugin-typescript2": "^0.29.0",
+    "sass": "^1.30.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-prettier": "^1.1.2",
     "typescript": "^4.1.2"
   },
   "dependencies": {},
@@ -36,8 +55,13 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix"
+    "src/**/*.{js,ts}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.scss": [
+      "stylelint scss --fix",
+      "git add"
     ]
   }
 }
