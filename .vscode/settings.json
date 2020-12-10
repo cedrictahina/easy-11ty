@@ -2,5 +2,8 @@
     "files.exclude": {
         "node_modules": true,
         ".cache": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     }
 }
